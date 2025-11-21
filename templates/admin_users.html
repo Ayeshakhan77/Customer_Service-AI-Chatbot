@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Users</h1>
+        <p class="subtitle">View and manage system users</p>
+
+        <div class="users-section">
+            <h2>System Users</h2>
+            {% if users %}
+                <div class="users-list">
+                    {% for user in users %}
+                        <div class="user-card">
+                            <div class="user-info">
+                                <div class="user-name">{{ user.username }}</div>
+                                <div class="user-role">{{ user.role|title }}</div>
+                            </div>
+                            <div class="user-status">
+                                {% if user.role == 'admin' %}
+                                    <span class="status-badge admin">Admin</span>
+                                {% elif user.role == 'agent' %}
+                                    <span class="status-badge agent">Agent</span>
+                                {% else %}
+                                    <span class="status-badge customer">Customer</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ users|length }}</span>
+                        <span class="stat-label">Total Users</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ users|selectattr('role', 'equalto', 'admin')|list|length }}</span>
+                        <span class="stat-label">Admins</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ users|selectattr('role', 'equalto', 'agent')|list|length }}</span>
+                        <span class="stat-label">Agents</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ users|selectattr('role', 'equalto', 'customer')|list|length }}</span>
+                        <span class="stat-label">Customers</span>
+                    </div>
+                </div>
+            {% else %}
+                <p class="no-users">No users found in the system.</p>
+            {% endif %}
+        </div>
+
+        <div class="navigation">
+            <button onclick="window.location.href='{{ url_for('index') }}'" class="back-btn">← Back to Dashboard</button>
+        </div>
+    </div>
+</body>
+</html>

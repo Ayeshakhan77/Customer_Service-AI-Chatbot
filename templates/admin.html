@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p class="subtitle">Manage your chatbot system</p>
+        <div class="admin-menu">
+            <div class="admin-card">
+                <div class="card-icon">📚</div>
+                <h3>Knowledge Base</h3>
+                <p>Manage FAQs and responses</p>
+                <button onclick="window.location.href='{{ url_for('admin_kb') }}'" class="admin-btn">Manage KB</button>
+            </div>
+            <div class="admin-card">
+                <div class="card-icon">👥</div>
+                <h3>User Management</h3>
+                <p>View and manage system users</p>
+                <button onclick="window.location.href='{{ url_for('admin_users') }}'" class="admin-btn">Manage Users</button>
+            </div>
+            <div class="admin-card">
+                <div class="card-icon">📊</div>
+                <h3>Reports</h3>
+                <p>View system analytics</p>
+                <button class="admin-btn disabled">Coming Soon</button>
+            </div>
+        </div>
+        <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+    </div>
+</body>
+</html>
